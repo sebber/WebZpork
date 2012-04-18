@@ -1,0 +1,15 @@
+@(roles: Seq[Role])
+
+@main("Roles") {
+	
+	<div class="page-header">
+		<h1>Roles</h1>
+	</div>
+
+	<ul>
+	@roles.map { role => 
+		<li>@role.title</li>
+	}
+
+	</ul>
+}

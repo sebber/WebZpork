@@ -1,0 +1,40 @@
+@(id: Long, userForm: Form[User])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
+
+@main("Sign in") {
+	
+	<div class="page-header">
+		<h1>Edit user</h1>
+	</div>
+
+	<div class="tabbable">
+		<ul class="nav nav-tabs">
+	  		<li class="active"><a href="#1" data-toggle="tab">Profile</a></li>
+	  		<li><a href="#2" data-toggle="tab">Permissions</a></li>
+	  		<li><a href="#3" data-toggle="tab">Password</a></li>
+		</ul>
+
+		<div class="tab-content">
+			<div class="tab-pane active" id="1">
+				@helper.form(routes.Accounts.update(id)) {
+					
+					@inputText(userForm("username"), '_label -> "Username")
+					@inputPassword(userForm("password"), '_label -> "Password")
+
+					<button class="btn" type="submit" id="createbutton">Save</button>
+					
+				}
+			</div>
+
+			<div class="tab-pane" id="2">
+			</div>
+
+			<div class="tab-pane" id="3">
+				@inputPassword(userForm("password"), '_label -> "Password")
+			</div>
+
+		</div>
+	</div>
+}

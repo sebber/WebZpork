@@ -1,0 +1,36 @@
+@(title: String)(content: Html)
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>@title</title>
+		
+		<link rel="shortcut icon" type="image/png" href="@routes.Assets.at("images/favicon.png")">
+
+		<script src="@routes.Assets.at("javascripts/jquery-1.7.1.min.js")"></script>
+		<script src="@routes.Assets.at("javascripts/bootstrap.min.js")"></script>
+
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/bootstrap.min.css")" />
+        <link rel="stylesheet" media="screen" href="@routes.Assets.at("stylesheets/main.min.css")">
+    </head>
+    <body>
+
+    	<div class="container-fluid">
+    		<div class="row-fluid" id="header" >
+    			<div class="span12">
+    				Tjeckk
+    			</div>
+    		</div>
+
+    		<div class="row-fluid">
+    			<div class="span2" id="sidebar">
+    				@partials.menu()
+    			</div>
+
+    			<div class="span10" id="main">
+			        @content	
+    			</div>
+    		</div>
+	    </div>
+
+    </body>
+</html>

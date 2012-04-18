@@ -1,0 +1,2 @@
+$ ->
+	#$(".tabbable").tab 'show'

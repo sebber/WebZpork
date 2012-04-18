@@ -1,0 +1,24 @@
+@(userForm: Form[User])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
+
+@main("Sign in") {
+	
+	@helper.form(routes.Accounts.save) {
+		<div class="page-header">
+			<h1>Create user</h1>
+		</div>
+
+		<p>
+			@inputText(userForm("username"), '_label -> "Username")
+		</p>
+
+		<p>
+			@inputPassword(userForm("password"), '_label -> "Password")
+		</p>
+		<p>
+			<button class="btn" type="submit" id="createbutton">Save</button>
+		</p>
+	}
+}
