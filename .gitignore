@@ -5,3 +5,5 @@ target
 tmp
 .history
 dist
+play.h2.db
+play.trace.db
