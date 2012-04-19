@@ -24,6 +24,14 @@ object Accounts extends Controller with Secured {
     )(User.apply)(User.unapply)
   )
 
+  val rolesForm = Form(
+    tuple(
+      "id" -> ignored(NotAssigned: Pk[Long]),
+      "ids" -> list(longNumber)
+    )
+  )
+
+
 
   // --- Actions
  
@@ -37,6 +45,16 @@ object Accounts extends Controller with Secured {
   }
 
 
+
+  // --- Business
+
+  def addRole(userId: Long) = withUser { user => implicit request =>
+    val user = User.findById(userId)
+    val roleIds = rolesForm.bindFromRequest.get
+
+    //val role = Role.findById(roleId)
+    Ok(roleIds + " added to " + user)   
+  }
 
 
   // --- CRUD Actions

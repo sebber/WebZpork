@@ -1,5 +1,6 @@
 @(id: Long, userForm: Form[User])
 
+@import models._
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
 
@@ -11,13 +12,13 @@
 
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
-	  		<li class="active"><a href="#1" data-toggle="tab">Profile</a></li>
-	  		<li><a href="#2" data-toggle="tab">Permissions</a></li>
-	  		<li><a href="#3" data-toggle="tab">Password</a></li>
+	  		<li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+	  		<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
+	  		<li><a href="#change-password" data-toggle="tab">Password</a></li>
 		</ul>
 
 		<div class="tab-content">
-			<div class="tab-pane active" id="1">
+			<div class="tab-pane active" id="profile">
 				@helper.form(routes.Accounts.update(id)) {
 					
 					@inputText(userForm("username"), '_label -> "Username")
@@ -28,10 +29,22 @@
 				}
 			</div>
 
-			<div class="tab-pane" id="2">
+			<div class="tab-pane" id="permissions">
+				@helper.form(routes.Accounts.addRole(id)) {
+					
+					@inputText(userForm("id"), '_label -> "id")
+
+					@Role.findAll.map { role =>
+						<p>
+							<input type="checkbox" value="@role.id.get" name="ids[$role.id.get]"> @role.title
+						</p>
+					}
+
+					<button class="btn" type="submit" id="createbutton">Save</button>
+				}
 			</div>
 
-			<div class="tab-pane" id="3">
+			<div class="tab-pane" id="change-password">
 				@inputPassword(userForm("password"), '_label -> "Password")
 			</div>
 

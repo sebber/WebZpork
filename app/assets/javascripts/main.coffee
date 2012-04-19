@@ -1,2 +1,2 @@
 $ ->
-	#$(".tabbable").tab 'show'
+	$(".tabbable").tab 'profile'

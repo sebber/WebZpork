@@ -15,6 +15,8 @@ GET		/users/:id 					controllers.Accounts.show(id: Long)
 GET		/users/:id/edit				controllers.Accounts.edit(id: Long)
 POST	/users/:id/edit				controllers.Accounts.update(id: Long)
 
+POST	/users/:id/add_role			controllers.Accounts.addRole(id: Long)
+
 
 GET 	/login						controllers.Auth.login
 POST	/login						controllers.Auth.authenticate
