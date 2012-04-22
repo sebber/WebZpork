@@ -31,6 +31,12 @@ object Role {
 		}
 	}
 
+	def findByName(name: String): Option[Role] = {
+		DB.withConnection { implicit connection =>
+			SQL("select * from role where title = {name}").on('name -> name).as(Role.simple.singleOpt)
+		}
+	}
+
 	def findAll: List[Role] = {
 		DB.withConnection { implicit connection =>
 			SQL("select * from role").as(Role.simple *)

@@ -22,7 +22,7 @@
 				<tr>
 					<td>@user.username</td>
 					<td>
-						@User.roles(user.id.get).map { role =>
+						@user.roles.map { role =>
 							@role.title, 
 						}
 					</td>

@@ -18,6 +18,7 @@ object Global extends GlobalSettings {
 
 		setupUsers
 		setupRoles
+		setupUserWithRoles
 	}
 
 
@@ -47,12 +48,28 @@ object Global extends GlobalSettings {
 				Role(NotAssigned, "Admin", "Administrative superuser")
 			).foreach(Role.insert)
 
-
 			Logger.info("But now they do... a couple.")
 
 		} else {
 			Logger.info("Some roles does already exist.")
 		}
 	}
+
+	def setupUserWithRoles = {
+		val users = User.findAll
+		val roleUser = Role.findByName("User").get
+
+		users.map { user =>
+			if(user.roles.isEmpty) {
+				Logger.info("user "+ user.username +" has no roles")
+
+				User.addRole(user.id.get, roleUser.id.get)
+
+				Logger.info("But now he has one :)")
+			}
+		}
+
+	}
+
 
 }

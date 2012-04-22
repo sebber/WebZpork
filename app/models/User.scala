@@ -8,7 +8,11 @@ import anorm.SqlParser._
 
 import models._
 
-case class User(id: Pk[Long], username: String, password: String)
+case class User(id: Pk[Long], username: String, password: String) {
+	lazy val roles = {
+		User.getRoles(id.get)
+	}
+}
 
 object User {
 
@@ -61,7 +65,22 @@ object User {
 		}
 	}
 
-	def roles(userId: Long): Seq[Role] = {
+	def addRole(userId: Long, roleId: Long) = {
+		DB.withConnection { implicit connection =>
+			SQL(
+				"""
+					insert into user_role(user_id, role_id) values(
+						{user_id}, {role_id}
+					)
+				"""
+			).on(
+				'user_id -> userId,
+				'role_id -> roleId
+			).executeUpdate()
+		}
+	}
+
+	def getRoles(userId: Long): Seq[Role] = {
 		DB.withConnection { implicit connection =>
 			SQL(
 				"""

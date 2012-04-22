@@ -7,3 +7,4 @@ tmp
 dist
 play.h2.db
 play.trace.db
+.DS_Store
