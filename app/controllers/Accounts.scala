@@ -53,9 +53,7 @@ object Accounts extends Controller with Secured {
     val roleIds = rolesForm.bindFromRequest.get._2
 
     User.addRoles(curr_user.id.get, roleIds)
-
-    //val role = Role.findById(roleId)
-    Ok(roleIds + "  | was added to |  " + curr_user)   
+    Redirect(routes.Accounts.edit(userId))
   }
 
 

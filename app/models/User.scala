@@ -81,6 +81,7 @@ object User {
 	}
 
 	def addRoles(userId: Long, roleIds: List[Long]) = {
+		flushRoles(userId)
 		roleIds foreach ((id: Long) => User.addRole(userId, id))
 	}
 
@@ -97,6 +98,19 @@ object User {
 			).on(
 				'user_id -> userId
 			).as(Role.simple *)
+		}
+	}
+
+	def flushRoles(userId: Long) = {
+		DB.withConnection { implicit connection =>
+			SQL(
+				"""
+					delete user_role
+					where user_id = {user_id}
+				"""
+			).on(
+				'user_id -> userId
+			).executeUpdate()
 		}
 	}
 

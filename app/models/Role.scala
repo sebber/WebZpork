@@ -8,7 +8,9 @@ import anorm.SqlParser._
 
 import models._
 
-case class Role(id: Pk[Long], title: String, description: String)
+case class Role(id: Pk[Long], title: String, description: String) {
+	override def toString = this.title
+}
 
 object Role {
 
@@ -22,6 +24,25 @@ object Role {
 		}
 	}
 	
+
+	// --- Business
+
+	def hasUser(id: Long, userId: Long): Boolean = {
+		DB.withConnection { implicit connection =>
+			SQL(
+				"""
+					select count(*) 
+					from user_role 
+					where user_id = {user_id}
+					and	role_id = {role_id}
+				"""
+			).on(
+				'user_id -> userId,
+				'role_id -> id
+			).as(scalar[Long].single) > 0
+		}
+	}
+
 
 	// --- Finders
 

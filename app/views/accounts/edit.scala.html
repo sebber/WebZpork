@@ -31,12 +31,16 @@
 
 			<div class="tab-pane" id="permissions">
 				@helper.form(routes.Accounts.addRole(id)) {
-					
-					@inputText(userForm("id"), '_label -> "id")
 
 					@Role.findAll.map { role =>
 						<p>
-							<input type="checkbox" value="@role.id.get" name="ids[@role.id.get]"> @role.title
+							<input type="checkbox"
+							value="@role.id.get" 
+							name="ids[@role.id.get]"
+							@if(Role.hasUser(role.id.get, id)) {
+								checked="true"
+							}
+							/> @role.title
 						</p>
 					}
 

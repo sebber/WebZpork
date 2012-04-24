@@ -22,9 +22,7 @@
 				<tr>
 					<td>@user.username</td>
 					<td>
-						@user.roles.map { role =>
-							@role.title, 
-						}
+						@user.roles.mkString(", ")
 					</td>
 					<td>
 						<a href="@routes.Accounts.edit(user.id.get)">edit</a>
