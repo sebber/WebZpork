@@ -49,11 +49,13 @@ object Accounts extends Controller with Secured {
   // --- Business
 
   def addRole(userId: Long) = withUser { user => implicit request =>
-    val user = User.findById(userId)
-    val roleIds = rolesForm.bindFromRequest.get
+    val curr_user = User.findById(userId).get
+    val roleIds = rolesForm.bindFromRequest.get._2
+
+    User.addRoles(curr_user.id.get, roleIds)
 
     //val role = Role.findById(roleId)
-    Ok(roleIds + " added to " + user)   
+    Ok(roleIds + "  | was added to |  " + curr_user)   
   }
 
 

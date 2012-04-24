@@ -4,7 +4,7 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
 
-@main("Sign in") {
+@main("Edit user") {
 	
 	<div class="page-header">
 		<h1>Edit user</h1>
@@ -36,7 +36,7 @@
 
 					@Role.findAll.map { role =>
 						<p>
-							<input type="checkbox" value="@role.id.get" name="ids[$role.id.get]"> @role.title
+							<input type="checkbox" value="@role.id.get" name="ids[@role.id.get]"> @role.title
 						</p>
 					}
 

@@ -4,7 +4,7 @@ import PlayProject._
 
 object ApplicationBuild extends Build {
 
-    val appName         = "graves"
+    val appName         = "WebZpork"
     val appVersion      = "1.0-SNAPSHOT"
 
     val appDependencies = Seq(

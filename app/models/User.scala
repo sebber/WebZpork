@@ -80,6 +80,10 @@ object User {
 		}
 	}
 
+	def addRoles(userId: Long, roleIds: List[Long]) = {
+		roleIds foreach ((id: Long) => User.addRole(userId, id))
+	}
+
 	def getRoles(userId: Long): Seq[Role] = {
 		DB.withConnection { implicit connection =>
 			SQL(
@@ -135,7 +139,7 @@ object User {
 	}
 
 
-	// --- CRUD
+	// --- CUD, Yah without the R because it is under Finders
 
 
 	/**

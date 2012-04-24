@@ -14,7 +14,7 @@
     </head>
     <body>
 
-    	<div class="container-fluid">
+    	<div id="wrapper" class="container-fluid">
     		<div class="row-fluid" id="header" >
     			<div class="span12">
     				Tjeckk
@@ -22,11 +22,11 @@
     		</div>
 
     		<div class="row-fluid">
-    			<div class="span2" id="sidebar">
+    			<div class="span3" id="sidebar">
     				@partials.menu()
     			</div>
 
-    			<div class="span10" id="main">
+    			<div class="span8" id="main">
 			        @content	
     			</div>
     		</div>
