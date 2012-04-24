@@ -41,7 +41,7 @@ object Accounts extends Controller with Secured {
 
 
   def user = withUser { user => implicit request =>
-  	Ok(html.index("<h1>"+ user.username +"</h1>"))
+  	Ok(html.accounts.show(user))
   }
 
 
