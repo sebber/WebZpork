@@ -15,7 +15,7 @@ object Global extends GlobalSettings {
 
 	override def onRouteRequest(request: RequestHeader): Option[Handler] = {
 
-	    Logger.info("executed before every request:" + request.toString)
+	    //Logger.info("executed before every request:" + request.toString)
 
 	    request.session + ("current_url" -> request.toString)
 

@@ -64,8 +64,6 @@ object Role {
 		}
 	}
 
-/*
-
 	/**
 	 * Return a page of Users
 	 * @param page Page to display
@@ -73,24 +71,17 @@ object Role {
 	 * @param orderBy Which property to sort by
 	 * @param filter Filter by  
 	 */
-	def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Seq[User] = {
+	def list(page: Int = 0, pageSize: Int = 10, orderBy: Int = 1, filter: String = "%"): Seq[Role] = {
 		
 		val offset = pageSize * page
 
 		DB.withConnection { implicit connection =>
 
-			/*
-				When users have emails, add this to filtering:
-
-				SQL:
-	 			where user.email like {filter}
-	 			or user.email like {filter}
-			*/
 
 			SQL(
 	 		"""
-	 			select * from user
-	 			where user.username like {filter}
+	 			select * from role
+	 			where role.title like {filter}
 	 			order by {orderBy} nulls last
 	 			limit {pageSize} offset {offset}
 	 		"""
@@ -99,10 +90,10 @@ object Role {
 				'offset -> offset,
 				'filter -> filter,
 				'orderBy -> orderBy 
-			).as(User.simple *)
+			).as(Role.simple *)
 		}
 	}
-*/
+
 
 	// --- CRUD
 
@@ -117,8 +108,8 @@ object Role {
 			SQL(
 				"""
 					update role
-					set title = {title}
-					and description = {description}
+					set title = {title},
+					description = {description}
 					where id = {id} 
 				"""
 			).on(

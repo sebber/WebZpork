@@ -30,7 +30,7 @@
 			</div>
 
 			<div class="tab-pane" id="permissions">
-				@helper.form(routes.Accounts.addRole(id)) {
+				@helper.form(routes.Accounts.addRoleToUser(id)) {
 
 					@Role.findAll.map { role =>
 						<p>

@@ -1,53 +1,50 @@
+
+@item_handler( x: Any ) = {
+	@x match {
+
+		case (key, title) => {
+			<li class="nav-header">
+				@title
+			</li>
+		}
+
+		case (key, title, url) => {
+			<li>
+				<a href="@url">@title</a>
+			</li>
+		}	
+
+		case (key, title, url, icon) => {
+			<li>
+			<a href="@url">
+				<i class="@icon"></i>
+				@title
+			</a>
+			</li>
+		}
+
+		case (key, title, url, icon, children) => {
+			<li>
+			<a href="@url">
+				<i class="@icon"></i>
+				@title
+			</a>
+
+				<ul class="nav">
+					@item_handler(children)
+				</ul>
+			</li>
+		}
+
+	}
+}
+
 <div class="well" style="padding: 8px 0;">
 	<ul id="main_menu" class="nav nav-list">
 		@models.SiteMap.items.map { item =>
 			
-			@item match {
+			@item_handler(x = item)
 
-				case (key, title) => {
-					<li class="nav-header">
-						@title
-					</li>
-				}
-
-				case (key, title, url) => {
-					<li>
-						<a href="@url">@title</a>
-					</li>
-				}	
-
-				case (key, title, url, icon) => {
-					<li>
-					<a href="@url">
-						<i class="@icon"></i>
-						@title
-					</a>
-					</li>
-				}
-			}
 		}
 	</ul>
 </div>
-
-
-@*
-<div class="well" style="padding: 8px 0;">
-	<ul id="main_menu" class="nav nav-list">
-		<li class="nav-header">
-			Contents
-		</li>
-		<li>
-			<a href="@routes.Application.index()">
-			<i class="icon-home"></i>Start
-			</a>
-		</li>
-		<li><a href="@routes.Accounts.index()">Users</a></li>
-		<li class="nav-header">
-			My settings
-		</li>
-		<li><a href="@routes.Accounts.user()">Profile</a></li>
-		<li class="divider"></li>
-		<li><a href="@routes.Auth.logout()">Sign out</a></li>
-	</ul>
-</div>
-*@

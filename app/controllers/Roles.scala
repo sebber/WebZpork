@@ -12,23 +12,16 @@ import anorm._
 import views._
 import models._
 
-object Accounts extends Controller with Secured {
+object Roles extends Controller with Secured {
 
   // --- Forms
 
-  val userForm = Form(
+  val roleForm = Form(
     mapping(
-	    "id" -> ignored(NotAssigned:Pk[Long]),
-	    "username" -> nonEmptyText,
-	    "password" -> nonEmptyText
-    )(User.apply)(User.unapply)
-  )
-
-  val rolesForm = Form(
-    tuple(
       "id" -> ignored(NotAssigned: Pk[Long]),
-      "ids" -> list(longNumber)
-    )
+      "title" -> nonEmptyText,
+      "description" -> text
+    )(Role.apply)(Role.unapply)
   )
 
 
@@ -36,27 +29,18 @@ object Accounts extends Controller with Secured {
   // --- Actions
  
   def index = withUser { user => implicit request =>
-  	Ok(html.accounts.list(User.list(0, 10, 1)))
-  }
-
-  def user = withUser { user => implicit request =>
-  	Ok(html.accounts.show(user))
+  	Ok(html.roles.list(Role.list(0, 10, 1)))
   }
 
 
   // --- Business
 
-  def addRoleToUser(userId: Long) = withUser { user => implicit request =>
-    val curr_user = User.findById(userId).get
-    val roleIds = rolesForm.bindFromRequest.get._2
-
-    User.addRoles(curr_user.id.get, roleIds)
-    Redirect(routes.Accounts.edit(userId))
-  }
+  
 
 
   // --- CRUD Actions
 
+/*
   def show(id: Long) = withAuth { user => implicit request =>
 		User.findById(id).map {
 			showUser => Ok(html.accounts.show(showUser))
@@ -64,27 +48,27 @@ object Accounts extends Controller with Secured {
 			Forbidden
 		}
 	}
-
+*/
 
   def edit(id: Long) = withAuth { user => implicit request =>
-  	User.findById(id).map {
-  		editedUser => Ok(html.accounts.edit(id, userForm.fill(editedUser)))	
+  	Role.findById(id).map {
+  		role => Ok(html.roles.edit(id, roleForm.fill(role)))	
   	}.getOrElse {
-  		Forbidden
+  		NotFound
   	}
   }
 
   def update(id: Long) = withAuth { user => implicit request =>
-    userForm.bindFromRequest.fold(
-		  formWithErrors => BadRequest(html.accounts.edit(id, formWithErrors)),
-		    editedUser => {
-          User.update(id, editedUser)
-          Redirect(routes.Accounts.show(id))
+    roleForm.bindFromRequest.fold(
+		  formWithErrors => BadRequest(html.roles.edit(id, formWithErrors)),
+		    role => {
+          Role.update(id, role)
+          Redirect(routes.Roles.index)
 		    }
     )
   }
 
-
+/*
   def create = withAuth { username => implicit request =>
   	Ok(html.accounts.create(userForm))
   }
@@ -98,5 +82,6 @@ object Accounts extends Controller with Secured {
   	  }
   	)
   }
+*/
 
 }

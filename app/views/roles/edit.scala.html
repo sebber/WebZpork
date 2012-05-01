@@ -1,0 +1,22 @@
+@(id: Long, roleForm: Form[Role])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
+
+@main("Edit Role") {
+	
+	<div class="page-header">
+		<h1>Edit Role</h1>
+	</div>
+
+	<div class="tab-pane active" id="profile">
+		@helper.form(routes.Roles.update(id)) {
+			
+			@inputText(roleForm("title"), '_label -> "Title")
+			@inputText(roleForm("description"), '_label -> "Description")
+
+			<button class="btn" type="submit" id="createbutton">Save</button>
+			
+		}
+	</div>
+}
