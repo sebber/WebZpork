@@ -86,7 +86,9 @@ object Roles extends Controller with Secured {
 
   def delete(id: Long) = withAuth { username => implicit request => 
     Role.delete(id)
-    Redirect(routes.Roles.index)
+    Redirect(routes.Roles.index).flashing(
+      "success" -> "Role deleted"
+    )
   }
 
 

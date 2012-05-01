@@ -1,10 +1,18 @@
-@(roles: Seq[Role])
+@(roles: Seq[Role])(implicit request: RequestHeader)
 
 @main("Roles") {
 	
 	<div class="page-header">
 		<h1>Roles</h1>
 	</div>
+
+	@if(request.flash.get("success").isDefined) {
+		@partials.notice("success", request.flash.get("success").get)
+	}
+	@if(request.flash.get("error").isDefined) {
+		@partials.notice("error", request.flash.get("error").get)
+	}
+	
 
 	<table class="table table-striped table-bordered table-condensed">
 		<thead>
