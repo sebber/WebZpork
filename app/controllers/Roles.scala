@@ -68,20 +68,26 @@ object Roles extends Controller with Secured {
     )
   }
 
-/*
+
   def create = withAuth { username => implicit request =>
-  	Ok(html.accounts.create(userForm))
+  	Ok(html.roles.create(roleForm))
   }
 
   def save = withAuth { user => implicit request =>
-  	userForm.bindFromRequest.fold(
-  	  formWithErrors => BadRequest(html.accounts.create(formWithErrors)),
-  	  newUser => {
-  	  	User.insert(newUser)
-  	  	Redirect(routes.Accounts.index)
+  	roleForm.bindFromRequest.fold(
+  	  formWithErrors => BadRequest(html.roles.create(formWithErrors)),
+  	  role => {
+  	  	Role.insert(role)
+  	  	Redirect(routes.Roles.index)
   	  }
   	)
   }
-*/
+
+
+  def delete(id: Long) = withAuth { username => implicit request => 
+    Role.delete(id)
+    Redirect(routes.Roles.index)
+  }
+
 
 }

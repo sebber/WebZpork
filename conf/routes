@@ -19,8 +19,11 @@ POST	/users/:id/add_role			controllers.Accounts.addRoleToUser(id: Long)
 
 # Roles
 GET		/roles 						controllers.Roles.index
+GET		/roles/create				controllers.Roles.create
+POST	/roles/create				controllers.Roles.save
 GET		/roles/:id/edit				controllers.Roles.edit(id: Long)
 POST	/roles/:id/edit				controllers.Roles.update(id: Long)
+GET		/roles/:id/delete			controllers.Roles.delete(id: Long)
 
 GET 	/login						controllers.Auth.login
 POST	/login						controllers.Auth.authenticate

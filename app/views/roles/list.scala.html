@@ -23,8 +23,9 @@
 					<td>
 						@role.description
 					</td>
-					<td>
-						<a href="@routes.Roles.edit(role.id.get)">edit</a>
+					<td class="actions">
+						<a href="@routes.Roles.edit(role.id.get)" title="Edit"><i class="icon-pencil"> </i></a> -
+						<a href="@routes.Roles.delete(role.id.get)" class="delete-btn"  title="Delete"><i class="icon-trash"> </i></a>
 					</td>
 				</tr>
 			}
@@ -33,9 +34,10 @@
 		<tfoot>
 			<tr>
 				<td colspan="3">
-					<a href="@routes.Accounts.create()">Create new user</a>
+					<a href="@routes.Roles.create()"><i class="icon-plus"> </i> Create new Role</a>
 				</td>
 			</tr>
 		</tfoot>
 	</table>
+
 }

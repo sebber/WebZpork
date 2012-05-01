@@ -141,4 +141,23 @@ object Role {
 		}
 	}
 
+
+	/**
+	 * Delete a role
+	 * 
+	 * @param id Id of the Role to delete
+	 */
+	def delete(id: Long) = {
+		DB.withConnection { implicit connection =>
+			SQL(
+				"""
+				delete from role
+				where id = {id}
+				"""
+			).on(
+				'id -> id
+			).executeUpdate()
+		}
+	}
+
 }

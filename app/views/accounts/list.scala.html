@@ -22,8 +22,8 @@
 					<td>
 						@user.roles.mkString(", ")
 					</td>
-					<td>
-						<a href="@routes.Accounts.edit(user.id.get)">edit</a>
+					<td class="actions">
+						<a href="@routes.Accounts.edit(user.id.get)" title="Edit"><i class="icon-pencil"></i> </a>
 					</td>
 				</tr>
 			}
@@ -32,7 +32,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="3">
-					<a href="@routes.Accounts.create()">Create new user</a>
+					<a href="@routes.Accounts.create()"><i class="icon-plus"></i> Create new user</a>
 				</td>
 			</tr>
 		</tfoot>

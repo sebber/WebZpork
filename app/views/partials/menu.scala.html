@@ -1,20 +1,22 @@
 
-@item_handler( x: Any ) = {
-	@x match {
+@import models.admin._
 
-		case (key, title) => {
+@item_handler( item: Any ) = {
+	@item match {
+
+		case MenuItemWithTitle(title) => {
 			<li class="nav-header">
 				@title
 			</li>
 		}
 
-		case (key, title, url) => {
+		case MenuItemWithRoute(title, url) => {
 			<li>
 				<a href="@url">@title</a>
 			</li>
 		}	
 
-		case (key, title, url, icon) => {
+		case MenuItemWithIcon(title, url, icon) => {
 			<li>
 			<a href="@url">
 				<i class="@icon"></i>
@@ -23,7 +25,7 @@
 			</li>
 		}
 
-		case (key, title, url, icon, children) => {
+		case MenuItemWithChildren(title, url, icon, children) => {
 			<li>
 			<a href="@url">
 				<i class="@icon"></i>
@@ -31,7 +33,9 @@
 			</a>
 
 				<ul class="nav">
-					@item_handler(children)
+					@children.map { child =>
+						@item_handler(child)
+					}
 				</ul>
 			</li>
 		}
@@ -41,9 +45,9 @@
 
 <div class="well" style="padding: 8px 0;">
 	<ul id="main_menu" class="nav nav-list">
-		@models.SiteMap.items.map { item =>
+		@models.admin.SiteMap.items.map { item =>
 			
-			@item_handler(x = item)
+			@item_handler(item = item)
 
 		}
 	</ul>
