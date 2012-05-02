@@ -1,0 +1,13 @@
+@(id: Long, userForm: Form[User])
+
+@import helper._
+@implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
+
+@helper.form(routes.Accounts.update(id)) {
+					
+	@inputText(userForm("username"), '_label -> "Username")
+	@inputPassword(userForm("password"), '_label -> "Password")
+
+	<button class="btn" type="submit" id="createbutton">Save</button>
+	
+}

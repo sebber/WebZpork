@@ -1,0 +1,16 @@
+@(id: Long)
+
+@helper.form(routes.Accounts.addRoleToUser(id)) {
+
+	@Role.findAll.map { role =>
+		<p>
+			<input type="checkbox" value="@role.id.get" name="ids[@role.id.get]"
+			@if(Role.hasUser(role.id.get, id)) {
+				checked="true"
+			}
+			/> @role.title
+		</p>
+	}
+
+	<button class="btn" type="submit" id="createbutton">Save</button>
+}

@@ -7,11 +7,19 @@ import anorm._
 import anorm.SqlParser._
 
 import models._
+import models.game._
 
 case class User(id: Pk[Long], username: String, password: String) {
+	
 	lazy val roles = {
 		User.getRoles(id.get)
 	}
+
+	lazy val player = {
+		User.getPlayer(id.get)
+	}
+
+
 }
 
 object User {
@@ -111,6 +119,20 @@ object User {
 			).on(
 				'user_id -> userId
 			).executeUpdate()
+		}
+	}
+
+
+
+	def hasPlayer(userId: Long) = {
+		User.getPlayer(userId).isDefined
+	}
+
+	def getPlayer(userId: Long): Option[PlayerProfile] = {
+		DB.withConnection { implicit connection =>
+			SQL(
+				"select * from player where user_id = {id}"
+			).on('id -> userId).as(Player.simple.singleOpt)
 		}
 	}
 

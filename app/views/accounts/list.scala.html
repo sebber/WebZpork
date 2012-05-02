@@ -24,6 +24,10 @@
 					</td>
 					<td class="actions">
 						<a href="@routes.Accounts.edit(user.id.get)" title="Edit"><i class="icon-pencil"></i> </a>
+
+						@if(user.player.isDefined) {
+							<b>Has Playahh</b>
+						}
 					</td>
 				</tr>
 			}

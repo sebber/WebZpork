@@ -4,6 +4,8 @@
 @import helper._
 @implicitFieldConstructor = @{ FieldConstructor(formHelpers.text.f) }
 
+@user = @{ User.findById(id).get }
+
 @main("Edit user") {
 	
 	<div class="page-header">
@@ -13,39 +15,32 @@
 	<div class="tabbable">
 		<ul class="nav nav-tabs">
 	  		<li class="active"><a href="#profile" data-toggle="tab">Profile</a></li>
+
+	  		@if(user.player.isDefined) {
+	  			<li><a href="#edit_player" data-toggle="tab">Player</a></li>
+			} else {
+				<li><a href="#add_player" data-toggle="tab">Player</a></li>
+			}
+
 	  		<li><a href="#permissions" data-toggle="tab">Permissions</a></li>
 	  		<li><a href="#change-password" data-toggle="tab">Password</a></li>
 		</ul>
 
 		<div class="tab-content">
 			<div class="tab-pane active" id="profile">
-				@helper.form(routes.Accounts.update(id)) {
-					
-					@inputText(userForm("username"), '_label -> "Username")
-					@inputPassword(userForm("password"), '_label -> "Password")
+				@accounts.forms.profile(id, userForm)
+			</div>
+	
+			<div class="tab-pane" id="edit_player">
+				Has playahh
+			</div>
 
-					<button class="btn" type="submit" id="createbutton">Save</button>
-					
-				}
+			<div class="tab-pane" id="add_player">
+				has not a playahh
 			</div>
 
 			<div class="tab-pane" id="permissions">
-				@helper.form(routes.Accounts.addRoleToUser(id)) {
-
-					@Role.findAll.map { role =>
-						<p>
-							<input type="checkbox"
-							value="@role.id.get" 
-							name="ids[@role.id.get]"
-							@if(Role.hasUser(role.id.get, id)) {
-								checked="true"
-							}
-							/> @role.title
-						</p>
-					}
-
-					<button class="btn" type="submit" id="createbutton">Save</button>
-				}
+				@accounts.forms.addRole(id)
 			</div>
 
 			<div class="tab-pane" id="change-password">
